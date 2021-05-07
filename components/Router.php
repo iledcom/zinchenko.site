@@ -29,7 +29,7 @@ class Router {
 		// Проверить наличие такого запроса в routes.php
 		foreach($this->routes as $uriPattern => $path) {
 			// Сравниваем $uriPattern и $uri
-			if(preg_match("`$uriPattern`", $uri)) {
+			if(preg_match("~$uriPattern~", $uri)) {
 				// Если есть совпадение, определить какой controller и action брабатывает запрос
 				$segments = explode('/', $path);
 				$controllerName = array_shift($segments) . 'Controller';
@@ -50,6 +50,7 @@ class Router {
 		// Создать объект, вызвать метод (т.е. action)
 		$controllerObject = new $controllerName;
 		$result = $controllerObject->$actionName();
+		
 		if($result != null) {
 			die;
 		}
