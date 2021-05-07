@@ -51,7 +51,7 @@ class Router {
 		$controllerObject = new $controllerName;
 		$result = $controllerObject->$actionName();
 		if($result != null) {
-			break;
+			die;
 		}
 	}
 }
