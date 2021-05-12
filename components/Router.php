@@ -30,13 +30,19 @@ class Router {
 		foreach($this->routes as $uriPattern => $path) {
 			// Сравниваем $uriPattern и $uri
 			if(preg_match("~$uriPattern~", $uri)) {
-				// Если есть совпадение, определить какой controller и action брабатывает запрос
-				$segments = explode('/', $path);
+				// Получаем внутренний путь из внешнего согласно правилу
+
+				$internalRoute = preg_replace("~$uriPattern~", $path, $uri);
+
+				// определить controller, action параметры
+				
+				$segments = explode('/', $internalRoute);
 				$controllerName = array_shift($segments) . 'Controller';
 				$controllerName = ucfirst($controllerName);
 				//array_shift() извлекает первое значение массива array и возвращает его, сокращая размер array на один элемент.
 				//ucfirst — Преобразует первый символ строки в верхний регистр
 				$actionName = 'action' . ucfirst(array_shift($segments));
+				$parameters = $segments;
 			}
 		}
 
@@ -49,7 +55,8 @@ class Router {
 
 		// Создать объект, вызвать метод (т.е. action)
 		$controllerObject = new $controllerName;
-		$result = $controllerObject->$actionName();
+		//$result = $controllerObject->$actionName($parameters);
+		$result = call_user_func_array(array($controllerObject, $actionName), $parameters);
 		
 		if($result != null) {
 			die;
