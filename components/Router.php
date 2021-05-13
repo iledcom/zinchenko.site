@@ -37,6 +37,9 @@ class Router {
 				// определить controller, action параметры
 				
 				$segments = explode('/', $internalRoute);
+				// explode - Разбивает строку с помощью разделителя
+				// Возвращает массив строк, полученных разбиением строки string 
+				// с использованием separator в качестве разделителя
 				$controllerName = array_shift($segments) . 'Controller';
 				$controllerName = ucfirst($controllerName);
 				//array_shift() извлекает первое значение массива array и возвращает его, сокращая размер array на один элемент.
