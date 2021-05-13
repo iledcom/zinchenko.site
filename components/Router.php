@@ -30,9 +30,13 @@ class Router {
 		foreach($this->routes as $uriPattern => $path) {
 			// Сравниваем $uriPattern и $uri
 			if(preg_match("~$uriPattern~", $uri)) {
-				// Получаем внутренний путь из внешнего согласно правилу
+				// preg_match — Выполняет проверку на соответствие регулярному выражению
+				// Ищет в заданном тексте subject ($uri) совпадения с шаблоном pattern ("~$uriPattern~").
 
+				// Получаем внутренний путь из внешнего согласно правилу
 				$internalRoute = preg_replace("~$uriPattern~", $path, $uri);
+				//preg_replace — Выполняет поиск и замену по регулярному выражению
+				// Выполняет поиск совпадений в строке subject ($uri) с шаблоном pattern ("~$uriPattern~") и заменяет их на replacement ($path).
 
 				// определить controller, action параметры
 				
