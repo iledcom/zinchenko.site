@@ -18,6 +18,8 @@ class Router {
 	public function getURI(){
 		if(!empty($_SERVER['REQUEST_URI'])) {
 			return trim($_SERVER['REQUEST_URI'], '/');
+			//trim — Удаляет пробелы (или другие символы) из начала и конца строки
+			// вторым параметром указываются символы которые нужно удалить
 		}
 	}
 
@@ -38,8 +40,7 @@ class Router {
 				//preg_replace — Выполняет поиск и замену по регулярному выражению
 				// Выполняет поиск совпадений в строке subject ($uri) с шаблоном pattern ("~$uriPattern~") и заменяет их на replacement ($path).
 
-				// определить controller, action параметры
-				
+				// Определить controller, action параметры	
 				$segments = explode('/', $internalRoute);
 				// explode - Разбивает строку с помощью разделителя
 				// Возвращает массив строк, полученных разбиением строки string 
@@ -64,6 +65,8 @@ class Router {
 		$controllerObject = new $controllerName;
 		//$result = $controllerObject->$actionName($parameters);
 		$result = call_user_func_array(array($controllerObject, $actionName), $parameters);
+		//call_user_func_array — Вызывает callback-функцию с массивом параметров
+		//Метод созданного объекта (object) передаётся как массив, содержащий объект по индексу 0 и имя метода по индексу 1
 		
 		if($result != null) {
 			die;
