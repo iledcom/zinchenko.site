@@ -38,7 +38,7 @@ class Router {
 				// Получаем внутренний путь из внешнего согласно правилу
 				$internalRoute = preg_replace("~$uriPattern~", $path, $uri);
 				//preg_replace — Выполняет поиск и замену по регулярному выражению
-				// Выполняет поиск совпадений в строке subject ($uri) с шаблоном pattern ("~$uriPattern~") и заменяет их на replacement ($path).
+				// Выполняет поиск совпадений в строке subject (строка запроса $uri) по шаблону pattern ("~$uriPattern~") и заменяет их на replacement ($path).
 
 				// Определить controller, action параметры	
 				$segments = explode('/', $internalRoute);
@@ -46,8 +46,8 @@ class Router {
 				// Возвращает массив строк, полученных разбиением строки string 
 				// с использованием separator в качестве разделителя
 				$controllerName = array_shift($segments) . 'Controller';
-				$controllerName = ucfirst($controllerName);
 				//array_shift() извлекает первое значение массива array и возвращает его, сокращая размер array на один элемент.
+				$controllerName = ucfirst($controllerName);
 				//ucfirst — Преобразует первый символ строки в верхний регистр
 				$actionName = 'action' . ucfirst(array_shift($segments));
 				$parameters = $segments;
